@@ -1,0 +1,38 @@
+# Discovery report outputs can contain tenant and identity information.
+*.csv
+*.xlsx
+*.xlsm
+*.log
+Fabric Platform Discovery/
+RunManifest.json
+*manifest*.json
+Supporting files/
+outputs/
+logs/
+
+# Never commit local credentials or environment-specific secrets.
+.env
+.env.*
+*.secret
+secrets/
+*.key
+*.pem
+*.pfx
+*.p12
+*.token
+*.credentials
+
+# PowerShell and Python generated files.
+*.clixml
+__pycache__/
+*.py[cod]
+
+# Private tooling state and local artifacts.
+.copilot/
+.envrc
+
+# Editor and operating-system files.
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

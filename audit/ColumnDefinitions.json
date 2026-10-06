@@ -1,0 +1,122 @@
+{
+  "defaults": {
+    "WorkspaceName": "Display name of the workspace at extraction time.",
+    "WorkspaceId": "Unique workspace identifier. Use this, rather than the name, to match workspace records.",
+    "WorkspaceType": "Workspace type returned by the admin API, such as Workspace or PersonalGroup. See WorkspaceHostingMode for its hosting/licensing classification.",
+    "WorkspaceHostingMode": "Derived hosting classification, such as Fabric, Premium, Embedded, PPU or shared capacity. This is separate from the API's WorkspaceType.",
+    "CapacityId": "Identifier of the capacity associated with this record. Blank means no capacity was supplied by this source.",
+    "CapacityName": "Display name of the workspace's assigned dedicated capacity. Blank for shared capacity or unavailable capacity metadata.",
+    "CapacitySku": "Capacity size/product code, such as F8 or P1, when returned. It is not a measure of actual consumption.",
+    "WorkspaceAdmins": "Direct workspace Admin assignments, separated by semicolons. This is an administrator/contact proxy, not the configured workspace contact list or expanded group membership.",
+    "PrincipalDisplayName": "Source display name of the user, group or application identity with access. Names are not guaranteed to be unique.",
+    "PrincipalEmailOrUpn": "Email address or user principal name where available; otherwise the source identifier. Group/application entries can contain an ID rather than an email address.",
+    "PrincipalIdentifier": "Principal identifier returned by the API. It can be an email/UPN or an ID, depending on the principal type.",
+    "PrincipalObjectId": "Microsoft Entra object identifier supplied by the source, when available. No directory lookup was performed to fill missing values.",
+    "PrincipalType": "Identity category: Individual, AD Group, Service Principal, Service Principal Profile or Entire Tenant; unrecognized source labels are retained.",
+    "DirectoryUserType": "Directory user category, such as Member or Guest, if the API supplies it. This is not the workspace Member RBAC role.",
+    "WorkspaceRole": "Direct workspace role: Admin, Member, Contributor or Viewer. A group appears as one assignment; its members are not expanded.",
+    "State": "Workspace lifecycle state returned by the API. This extract selects active workspaces, not deleted-workspace history.",
+    "IsOrphaned": "True only when scanner data confirms a role-assignable workspace has no direct Admin assignment. Blank for personal/system workspaces or unavailable scanner data.",
+    "IsReadOnly": "Read-only indicator returned for the workspace. This is a workspace property, not a statement that a particular principal has Viewer access.",
+    "IsOnDedicatedCapacity": "Whether the API reports that the workspace is assigned to dedicated capacity.",
+    "DefaultDatasetStorageFormat": "Default semantic-model storage format reported for the workspace. It does not establish the format or size of every model.",
+    "HasWorkspaceLevelSettings": "Whether the API reports workspace-level settings. The individual settings are not enumerated here.",
+    "DashboardsCount": "Number of dashboards found for this workspace by the scanner. Blank means unavailable. This workspace total repeats on each access-assignment row.",
+    "ReportsCount": "Number of reports found for this workspace by the scanner. Blank means unavailable. Do not sum repeated workspace totals across access-assignment rows.",
+    "DatasetsCount": "Number of semantic models/datasets found for this workspace by the scanner. Blank means unavailable; totals repeat across workspace access rows.",
+    "LargeModelCount": "Number of workspace semantic models at least 1 GiB, only when size metadata is complete. Blank means size could not be established, not zero large models.",
+    "LargeModelSizeDataAvailable": "Whether size metadata is complete enough to calculate LargeModelCount. Workspaces with no models can also have a valid zero count.",
+    "LargeStorageFormatCount": "Number of workspace models using PremiumFiles (large storage format). This setting does not prove that each model exceeds 1 GiB.",
+    "LargeStorageFormatModel": "Names of workspace models using PremiumFiles, separated by |. This lists storage-format settings, not measured sizes.",
+    "DataflowsCount": "Workspace dataflow count from the scanner. Blank means unavailable; the same workspace count repeats across access rows.",
+    "FabricItemsCount": "Count of Fabric-native workspace items, excluding Power BI reports, semantic models, dashboards, apps and datamarts. This is not the total row count of the Items tab.",
+    "DiscoveryStatus": "Complete or Partial for the workspace discovery record. Read DiscoveryErrors before treating missing fields as genuinely empty.",
+    "DiscoveryErrors": "Explanation of unavailable or failed workspace discovery data. Blank when no discovery error was recorded.",
+    "ItemId": "Unique item identifier within the source inventory. Match with WorkspaceId where supplied.",
+    "ItemName": "Item display name returned by the source. Names can change and are not unique identifiers.",
+    "ItemType": "Item type used by this extract, such as Report, SemanticModel or Notebook. In Items, the Fabric and scanner source labels are retained separately.",
+    "FabricItemType": "Unmodified item-type label from Fabric Admin Items. Blank when this identity was not present in that source.",
+    "ScannerItemType": "Item-type label from workspace scanner metadata. Blank when this identity was not present in that source.",
+    "Sources": "Sources in which the workspace/item identity was observed, separated by |. A single source is not automatically a collection error.",
+    "AppId": "App identifier supplied by the source. In item inventory, it is an app association where supplied, not proof that the item is currently published.",
+    "OriginalReportId": "Source report identifier for a published/report copy, when returned. It can differ from the copy's own report or published-item ID.",
+    "DatasetId": "Related semantic-model/dataset identifier, when the source supplies it. Blank is not proof that no model exists.",
+    "CollectionStatus": "Status of collecting or reconciling this item record. Check source labels and Collection Notes before interpreting missing fields.",
+    "ReportId": "Unique report identifier reported by the source. App-published copies can have a different identifier from their original report.",
+    "ReportName": "Report display name at extraction time. Use ReportId, not the name alone, to match access records.",
+    "Permission": "Report or app access right returned by the relevant API. It is not a workspace RBAC role and does not identify how access was granted.",
+    "Source": "API or metadata source from which this record was obtained. This identifies provenance, not whether a grant is direct or inherited.",
+    "GrantOrigin": "Whether the source establishes direct versus inherited access. NotExposedBySource means the API does not provide that distinction.",
+    "PolicyFinding": "NeedsReview: individual or entire-tenant access needs checking against the groups-only policy, not a confirmed breach. GroupPrincipal: group entry. NotEvaluated: another or unknown identity type.",
+    "Reason": "Plain-language explanation of the row's assessment or coverage limitation. Read it together with the finding/status column.",
+    "AppName": "App display name returned by the source. Names are not unique and do not establish an app's publication state.",
+    "AppType": "ClassicApp, App, OrgApp or OrgAppAudience. Audience metadata items are not separate published apps, and app-level users are not audience membership.",
+    "LastUpdate": "App update timestamp supplied by the catalogue, where available. This is not a history of app versions or proof of the latest publication.",
+    "PublicationStatus": "Evidence available about publication: for example, ListedByAdminAppAPI or NotEstablished. Metadata existence alone does not prove publication.",
+    "AppWorkspaceId": "Workspace associated with the app by the catalogue. It is not necessarily the workspace identifier of an original source report.",
+    "PublishedItemId": "Identifier of the report or dashboard as returned in the app's published content. It can differ from OriginalReportId.",
+    "Coverage": "Visibility limit of this content record. CallerVisibleOnly means the signed-in account's result is not a guaranteed tenant-complete app-content list.",
+    "DateUtc": "UTC calendar date represented by this record. See Summary for the historical date range requested in this run.",
+    "EventId": "Unique audit-event identifier. Duplicate event IDs are removed and counted in Activity coverage.",
+    "CreationTimeUtc": "UTC event time recorded by the activity source, not the time the CSV/workbook was created.",
+    "Operation": "Action recorded in the audit event, such as viewing a report. It is not a consumption measure or a permissions snapshot.",
+    "UserId": "Actor identifier recorded by the activity event. It is not directory-enriched and may not always be a person's email address.",
+    "ObjectId": "Object identifier recorded in this activity event; its meaning depends on the operation. Do not treat it as a Microsoft Entra user object ID.",
+    "ActivityId": "Activity/correlation identifier supplied by the event source, where available. It is separate from the unique EventId.",
+    "IsSuccess": "Success indicator supplied by the activity event. Blank means the event did not supply the field, not failure.",
+    "Collector": "Part of the extraction package that recorded this issue, such as ReportAccess, AppContent or ActivityEvents.",
+    "Scope": "Resource, date or feature to which the issue applies. It may be an identifier or a descriptive label.",
+    "Code": "Stable issue category used by the script, for example ContentReadFailed or UnsupportedGrantOrigin.",
+    "Message": "Explanation of a collection issue or coverage problem. Missing records must not be treated as an empty successful result when an error is recorded.",
+    "AccessCollection": "Whether the report access-list read completed or failed. Complete means the list was read, not that direct grant origin was established.",
+    "DirectGrantAssessment": "Availability of direct-versus-inherited grant assessment. Unsupported means the source lacks grant origin; Unavailable means collection failed.",
+    "AppPrincipalCollection": "Status of reading app-level principals. Complete does not imply audience membership is known; Unsupported marks app types without this read route.",
+    "AudienceMembership": "Availability of audience-to-recipient mapping. Unsupported means it could not be collected through the approved read-only sources, not that the audience is empty.",
+    "ContentType": "App content category requested, such as reports or dashboards. Blank for an app type where the content route was unsupported.",
+    "Status": "Outcome or coverage status for this row. Complete refers only to the supported read; Partial, Failed or Unsupported must not be interpreted as zero data.",
+    "Rows": "Number of accepted/exported records for this source slice or content request. Read Status and Reason before interpreting zero.",
+    "ExportedRows": "Number of activity events exported for this UTC day after deduplication and any requested capacity filtering.",
+    "MissingCapacityRows": "Events excluded because a capacity filter was requested but the event had no CapacityId. Zero with no filter does not prove every event has a capacity.",
+    "DuplicateRows": "Duplicate event IDs skipped during activity collection. Nonzero marks the day's coverage Partial even though duplicate output rows were removed.",
+    "Source CSV": "Name of the retained CSV supplying the corresponding workbook table or filtered subset.",
+    "Workbook tab": "Tab containing the represented source data. See Table header for its location.",
+    "Table header": "Cell address where the table's column names begin.",
+    "Representation": "How this run's source file is represented: copied table or a verified filtered subset.",
+    "Sheet": "Workbook tab on which this documented column appears.",
+    "Section": "Table or supporting-data section containing the column. A tab can contain several sections.",
+    "Column": "Exact column name retained in the workbook.",
+    "Description": "What this column shows, including units, missing-value meaning and important interpretation limits.",
+    "Records": "Number of data rows in the source CSV, excluding headers. Zero does not mean successful collection; read the collector status and coverage.",
+    "Field": "Name of a setting or scope value for this extraction run.",
+    "Value": "Recorded value of this run setting. Dates and run timestamps are UTC."
+  },
+  "overrides": {
+    "WorkspaceAccess.csv": {
+      "CapacityId": "Identifier of the workspace's currently assigned dedicated capacity. Blank for shared capacity. It is not the capacity used by a historical activity event."
+    },
+    "Workspaces.csv": {
+      "CapacityId": "Identifier of the workspace's currently assigned dedicated capacity. Blank for shared capacity. This is current placement, not historical placement."
+    },
+    "Items.csv": {
+      "CapacityId": "Current capacity association from the workspace catalogue. This is not reconstructed historical placement.",
+      "CollectionStatus": "Complete for a collected item identity, or Partial when collection/reconciliation identified an issue. Source-only identities remain visible rather than being discarded."
+    },
+    "ReportAccess.csv": {
+      "Reason": "Why PolicyFinding has this value and what to check next. NeedsReview identifies individual or broad tenant access for review, not a proven direct-share violation."
+    },
+    "AppPrincipals.csv": {
+      "Permission": "App-level access right returned by the classic app-user API. It is not a workspace role or audience-membership description."
+    },
+    "AppAudienceCoverage.csv": {
+      "Reason": "Why app-level users cannot be interpreted as audience recipients and why audience membership remains unsupported."
+    },
+    "AppContentCoverage.csv": {
+      "Status": "CallerVisibleOnly: supported read limited to the caller's access. Failed: content read failed. Unsupported: no approved route for this app type.",
+      "Reason": "Visibility limitation, unsupported app-content route or specific read failure for this app/content category.",
+      "Rows": "Number of content rows observed before this request finished or failed. Zero alongside Failed/Unsupported is not proof that the app has no content."
+    },
+    "ActivityCoverage.csv": {
+      "Status": "Complete: paging completed for the requested UTC day without recorded exclusions/duplicates. Partial: coverage issue. Failed: the day's read did not finish."
+    }
+  }
+}
