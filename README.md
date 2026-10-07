@@ -111,6 +111,27 @@ a description, repeated in **Column Guide**. Tables have filters, frozen
 panes and clear coverage notes. Selective or failed runs can have fewer tabs.
 Only this run's files are used: no fallback to previous runs.
 
+### Workbook tabs
+
+Start with **Summary** and **Collection Notes** to understand the scope of the
+run and any limitations before reviewing the results.
+
+| Tab | What it shows and how to use it |
+|---|---|
+| **Workspace Access** | The original workspace and RBAC report, retaining the same 32 columns. Shows workspace details, capacity, assigned users/groups/application identities, and workspace roles such as Admin, Member, Contributor and Viewer. A workspace appears multiple times when it has multiple assignments. |
+| **Summary** | The run details, selected extracts, requested activity-history period and collection status. It also maps the supporting CSV files to their corresponding workbook tabs. |
+| **Workspaces** | One row per active workspace returned by the APIs, including capacity and hosting information. Use this for the workspace inventory without the repeated rows associated with access assignments. Shared, personal and system workspaces are included where returned. |
+| **Items** | The individual Fabric and Power BI items discovered, including their names, IDs, types and workspace/capacity relationships, not just item counts. |
+| **Report Access** | Report-level access records to support the groups-only access-policy review. Filter **`PolicyFinding` to `NeedsReview`** to identify individual and broad-access entries requiring investigation. The **Reason** column explains the finding and what to check. These are review candidates, not confirmed direct-sharing violations, because the APIs do not establish whether access is direct or inherited. |
+| **Apps** | App inventory and available workspace associations, distinguishing classic Power BI apps from newer app and audience metadata. An entry's existence does not necessarily mean the app is published. |
+| **App Access** | Users, groups and other identities returned by the classic app-level access API. This is **app-level access**, not a breakdown of membership within each app audience. |
+| **App Content** | Reports and dashboards published through classic Power BI apps that the signed-in administrator can access. This is different from listing everything in the source workspace. Newer OrgApp published content is not included in this version. |
+| **Activity Events** | Available historical activity records, including when an event occurred, who performed it, the action and related resource details where supplied. By default, this covers **one completed UTC day: yesterday UTC**. It is an activity log, not compute-consumption reporting. |
+| **Collection Notes** | Collection errors, access denials, unsupported information and coverage details. It also records differences between inventory sources. Use this tab to understand missing or partial results. |
+| **Column Guide** | A description of every table column, including its meaning and important interpretation notes. The same explanations are available as notes on the column headers. |
+
+### Interpretation notes
+
 The [workbook and requirements guide](docs/WORKBOOK-GUIDE.md) explains every
 tab and what each requirement receives. Key boundaries:
 
